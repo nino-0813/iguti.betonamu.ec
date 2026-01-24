@@ -174,7 +174,7 @@ const App: React.FC = () => {
           <>
             {isPureHome && (
               <>
-                <div className="relative h-[450px] md:h-[550px] overflow-hidden">
+                <div className="relative h-[300px] sm:h-[400px] md:h-[550px] overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&q=80&w=1600&h=800" 
                     alt="Vietnam Boutique" 
@@ -182,46 +182,46 @@ const App: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent" />
                   
-                  <div className="absolute inset-0 flex flex-col justify-center px-8 md:px-20">
+                  <div className="absolute inset-0 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-20">
                     <div className="max-w-2xl">
-                      <span className="inline-block text-[10px] font-bold tracking-[0.3em] uppercase bg-[#ffa41c] text-white px-3 py-1 mb-6 rounded">Selected Collections</span>
-                      <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight text-gray-900">
+                      <span className="inline-block text-[8px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase bg-[#ffa41c] text-white px-2 sm:px-3 py-0.5 sm:py-1 mb-3 sm:mb-4 md:mb-6 rounded">Selected Collections</span>
+                      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold mb-3 sm:mb-4 md:mb-6 leading-tight text-gray-900">
                         ベトナムを、<br />もっと身近に.
                       </h1>
-                      <p className="text-base md:text-lg text-gray-700 mb-10 leading-relaxed max-w-lg">
+                      <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-lg">
                         現地職人の温もりを感じるバチャン焼きから、空間を劇的に変えるセット商品まで。Xin Chào Vietnamが贈る、至福のセレクト。
                       </p>
-                      <div className="flex gap-4">
+                      <div className="flex gap-3 sm:gap-4">
                         <button 
                           onClick={() => {
                             handleSelectCategory(Category.SET);
                           }}
-                          className="bg-[#ffd814] text-gray-900 px-8 py-3.5 rounded-full font-bold text-sm flex items-center gap-2 hover:bg-[#f7ca00] transition-all shadow-lg border border-[#fcd200]"
+                          className="bg-[#ffd814] text-gray-900 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-3.5 rounded-full font-bold text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2 hover:bg-[#f7ca00] transition-all shadow-lg border border-[#fcd200]"
                         >
-                          空間提案セットを見る <ArrowRight size={18} />
+                          空間提案セットを見る <ArrowRight size={14} className="sm:w-[18px] sm:h-[18px]" />
                         </button>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="max-w-[1000px] mx-auto -mt-16 px-4 mb-16 relative z-10">
+                <div className="max-w-[1000px] mx-auto -mt-12 sm:-mt-16 px-3 sm:px-4 mb-12 sm:mb-16 relative z-10">
                   <ChatComponent products={products} />
                 </div>
               </>
             )}
 
-            <div className={`max-w-[1500px] mx-auto px-4 md:px-8 pb-20 ${!isPureHome ? 'mt-12' : ''}`}>
+            <div className={`max-w-[1500px] mx-auto px-3 sm:px-4 md:px-8 pb-12 sm:pb-16 md:pb-20 ${!isPureHome ? 'mt-8 sm:mt-12' : ''}`}>
               {isPureHome && (
-                <div className="mb-20">
-                  <div className="flex items-end justify-between mb-10 border-b border-gray-100 pb-6">
+                <div className="mb-12 sm:mb-16 md:mb-20">
+                  <div className="flex items-end justify-between mb-6 sm:mb-8 md:mb-10 border-b border-gray-100 pb-4 sm:pb-5 md:pb-6">
                     <div>
-                      <span className="text-[10px] font-bold text-[#ffa41c] tracking-[0.3em] uppercase mb-2 block">Special Package</span>
-                      <h2 className="text-3xl font-bold text-gray-900">空間提案セット</h2>
+                      <span className="text-[9px] sm:text-[10px] font-bold text-[#ffa41c] tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-1 sm:mb-2 block">Special Package</span>
+                      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">空間提案セット</h2>
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-8">
+                  <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
                     {products.filter(p => p.category === Category.SET).map(product => (
                       <ProductCard 
                         key={product.id} 
@@ -234,16 +234,16 @@ const App: React.FC = () => {
                 </div>
               )}
 
-              <div className="mb-20">
-                <div className="flex items-end justify-between mb-10 border-b border-gray-100 pb-6">
+              <div className="mb-12 sm:mb-16 md:mb-20">
+                <div className="flex items-end justify-between mb-6 sm:mb-8 md:mb-10 border-b border-gray-100 pb-4 sm:pb-5 md:pb-6">
                   <div>
-                    <span className="text-[10px] font-bold text-[#ffa41c] tracking-[0.3em] uppercase mb-2 block">Catalog</span>
-                    <h2 className="text-3xl font-bold text-gray-900">{pageTitle}</h2>
+                    <span className="text-[9px] sm:text-[10px] font-bold text-[#ffa41c] tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-1 sm:mb-2 block">Catalog</span>
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">{pageTitle}</h2>
                   </div>
                 </div>
 
                 {filteredProducts.length > 0 ? (
-                  <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-8">
+                  <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
                     {filteredProducts.map(product => (
                       <ProductCard 
                         key={product.id} 
@@ -254,8 +254,8 @@ const App: React.FC = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="py-20 text-center">
-                    <p className="text-gray-500">該当する商品は見つかりませんでした。</p>
+                  <div className="py-12 sm:py-16 md:py-20 text-center">
+                    <p className="text-sm sm:text-base text-gray-500">該当する商品は見つかりませんでした。</p>
                   </div>
                 )}
               </div>
@@ -265,51 +265,51 @@ const App: React.FC = () => {
       </main>
 
       {view !== 'admin' && (
-        <footer className="bg-white border-t border-gray-100 text-gray-900 py-16">
-          <div className="max-w-[1500px] mx-auto px-8 grid grid-cols-1 md:grid-cols-5 gap-12">
-            <div className="md:col-span-2">
-               <div className="flex items-center mb-6">
-                <span className="text-2xl font-bold tracking-tight">Xin Chào</span>
-                <span className="text-[#ffa41c] text-xs font-bold mt-1 ml-1 uppercase">Vietnam</span>
+        <footer className="bg-white border-t border-gray-100 text-gray-900 py-8 sm:py-12 md:py-16">
+          <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 sm:gap-8 md:gap-12">
+            <div className="col-span-2 sm:col-span-3 md:col-span-2">
+               <div className="flex items-center mb-4 sm:mb-6">
+                <span className="text-xl sm:text-2xl font-bold tracking-tight">Xin Chào</span>
+                <span className="text-[#ffa41c] text-[10px] sm:text-xs font-bold mt-0.5 sm:mt-1 ml-0.5 sm:ml-1 uppercase">Vietnam</span>
               </div>
-              <p className="text-sm text-gray-500 leading-relaxed max-w-sm">
+              <p className="text-xs sm:text-sm text-gray-500 leading-relaxed max-w-sm mb-4 sm:mb-0">
                 Xin Chào Vietnamは、ベトナム各地の伝統的な職人技を現代の暮らしに届けるセレクトショップです。
               </p>
               <button 
                 onClick={() => setView('admin')}
-                className="mt-8 flex items-center gap-2 text-[10px] font-bold text-gray-300 hover:text-gray-500 transition-colors uppercase tracking-widest"
+                className="mt-4 sm:mt-8 flex items-center gap-1.5 sm:gap-2 text-[9px] sm:text-[10px] font-bold text-gray-300 hover:text-gray-500 transition-colors uppercase tracking-widest"
               >
-                <Settings size={12} /> 管理者用メニュー
+                <Settings size={11} className="sm:w-3 sm:h-3" /> <span className="hidden sm:inline">管理者用メニュー</span>
               </button>
             </div>
             
             <div>
-              <h4 className="font-bold text-sm mb-6 uppercase tracking-widest text-gray-400">Curations</h4>
-              <ul className="text-xs space-y-4 text-gray-600">
+              <h4 className="font-bold text-xs sm:text-sm mb-4 sm:mb-6 uppercase tracking-widest text-gray-400">Curations</h4>
+              <ul className="text-[11px] sm:text-xs space-y-3 sm:space-y-4 text-gray-600">
                 <li onClick={() => handleSelectCategory(Category.SET)} className="hover:text-[#ffa41c] cursor-pointer">空間提案セット</li>
                 <li className="hover:text-[#ffa41c] cursor-pointer">B2B 大口注文</li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-bold text-sm mb-6 uppercase tracking-widest text-gray-400">Information</h4>
-              <ul className="text-xs space-y-4 text-gray-600">
+              <h4 className="font-bold text-xs sm:text-sm mb-4 sm:mb-6 uppercase tracking-widest text-gray-400">Information</h4>
+              <ul className="text-[11px] sm:text-xs space-y-3 sm:space-y-4 text-gray-600">
                 <li className="hover:text-[#ffa41c] cursor-pointer">配送・送料について</li>
                 <li className="hover:text-[#ffa41c] cursor-pointer">利用規約</li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-bold text-sm mb-6 uppercase tracking-widest text-gray-400">Contact</h4>
-              <ul className="text-xs space-y-4 text-gray-600">
+              <h4 className="font-bold text-xs sm:text-sm mb-4 sm:mb-6 uppercase tracking-widest text-gray-400">Contact</h4>
+              <ul className="text-[11px] sm:text-xs space-y-3 sm:space-y-4 text-gray-600">
                 <li className="hover:text-[#ffa41c] cursor-pointer">お問い合わせ</li>
                 <li className="hover:text-[#ffa41c] cursor-pointer">採用情報</li>
               </ul>
             </div>
           </div>
           
-          <div className="max-w-[1500px] mx-auto px-8 mt-16 pt-8 border-t border-gray-50 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">© 2024 Xin Chào Vietnam. Handcrafted for your life.</p>
+          <div className="max-w-[1500px] mx-auto px-4 sm:px-6 md:px-8 mt-8 sm:mt-12 md:mt-16 pt-6 sm:pt-8 border-t border-gray-50 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4">
+            <p className="text-[9px] sm:text-[10px] text-gray-400 font-bold uppercase tracking-widest text-center md:text-left">© 2024 Xin Chào Vietnam. Handcrafted for your life.</p>
           </div>
         </footer>
       )}
