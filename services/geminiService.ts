@@ -7,7 +7,11 @@ export class GeminiService {
   private chat: Chat | null = null;
 
   constructor() {
-    this.ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || import.meta.env.GEMINI_API_KEY || '';
+    if (!apiKey) {
+      console.warn('Gemini API key is not set. Chat functionality will be limited.');
+    }
+    this.ai = new GoogleGenAI({ apiKey });
   }
 
   initChat(products: Product[]) {

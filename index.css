@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: #fbfbfb;
+  color: #2c3e50;
+}
+
