@@ -17,8 +17,12 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ products }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    geminiService.initChat(products);
-  }, []);
+    try {
+      geminiService.initChat(products);
+    } catch (error) {
+      console.error('Failed to initialize chat:', error);
+    }
+  }, [products]);
 
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
@@ -54,7 +58,11 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ products }) => {
 
   const handleReset = () => {
     setMessages([{ role: 'model', text: 'Xin chào! また新しくお伺いします。どのような雑貨に興味がありますか？' }]);
-    geminiService.initChat(products);
+    try {
+      geminiService.initChat(products);
+    } catch (error) {
+      console.error('Failed to initialize chat:', error);
+    }
   };
 
   return (
