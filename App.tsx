@@ -106,7 +106,7 @@ const App: React.FC = () => {
   const isPureHome = !searchQuery && selectedCategory === Category.ALL;
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-gray-900 w-full overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-white text-gray-900 w-full max-w-full overflow-x-hidden" style={{ minWidth: '320px', width: '100%' }}>
       {view !== 'admin' && (
         <Header 
           cartCount={totalCartCount} 
@@ -211,7 +211,7 @@ const App: React.FC = () => {
               </>
             )}
 
-            <div className={`max-w-[1500px] mx-auto px-3 sm:px-4 md:px-8 pb-12 sm:pb-16 md:pb-20 ${!isPureHome ? 'mt-8 sm:mt-12' : ''}`}>
+            <div className={`max-w-[1500px] mx-auto px-3 sm:px-4 md:px-8 pb-12 sm:pb-16 md:pb-20 min-w-[320px] w-full ${!isPureHome ? 'mt-8 sm:mt-12' : ''}`}>
               {isPureHome && (
                 <div className="mb-12 sm:mb-16 md:mb-20">
                   <div className="flex items-end justify-between mb-6 sm:mb-8 md:mb-10 border-b border-gray-100 pb-4 sm:pb-5 md:pb-6">
