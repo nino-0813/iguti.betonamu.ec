@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Sparkles, Send, User, RotateCcw } from 'lucide-react';
 import { ChatMessage, Product } from '../../types';
-import { geminiService } from '../../services/geminiService';
+import { chatService } from '../../services/chatService';
 
 interface ChatComponentProps {
   products: Product[];
@@ -18,7 +18,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ products }) => {
 
   useEffect(() => {
     try {
-      geminiService.initChat(products);
+      chatService.initChat(products);
     } catch (error) {
       console.error('Failed to initialize chat:', error);
     }
@@ -43,7 +43,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ products }) => {
     // Placeholder for streaming
     setMessages(prev => [...prev, { role: 'model', text: '' }]);
 
-    await geminiService.sendMessage(userMessage, (text) => {
+    await chatService.sendMessage(userMessage, (text) => {
       setMessages(prev => {
         const last = prev[prev.length - 1];
         if (last.role === 'model') {
@@ -59,7 +59,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ products }) => {
   const handleReset = () => {
     setMessages([{ role: 'model', text: 'Xin chào! また新しくお伺いします。どのような雑貨に興味がありますか？' }]);
     try {
-      geminiService.initChat(products);
+      chatService.resetChat(products);
     } catch (error) {
       console.error('Failed to initialize chat:', error);
     }
