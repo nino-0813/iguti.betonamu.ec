@@ -205,7 +205,7 @@ const App: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="max-w-[1000px] mx-auto -mt-12 sm:-mt-16 px-3 sm:px-4 mb-12 sm:mb-16 relative z-10">
+                <div className="max-w-[1000px] mx-auto mt-8 sm:-mt-16 px-3 sm:px-4 mb-12 sm:mb-16 relative z-10">
                   <ChatComponent products={products} />
                 </div>
               </>
