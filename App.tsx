@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Header from './components/Layout/Header';
 import ProductCard from './components/Product/ProductCard';
 import CartPage from './components/Cart/CartPage';
@@ -8,13 +9,46 @@ import ChatComponent from './components/AI/ChatComponent';
 import AdminPage from './components/Admin/AdminPage';
 import { Product, CartItem, Category } from './types';
 import { MOCK_PRODUCTS as INITIAL_PRODUCTS } from './constants';
-import { geminiService } from './services/geminiService';
+import { chatService } from './services/chatService';
 import { ArrowRight, CheckCircle2, Settings } from 'lucide-react';
 
 type ViewType = 'home' | 'cart' | 'product-detail' | 'admin';
 
 const App: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [view, setView] = useState<ViewType>('home');
+
+  // URLとviewを同期
+  useEffect(() => {
+    const path = location.pathname;
+    if (path === '/admin') {
+      setView('admin');
+    } else if (path === '/cart') {
+      setView('cart');
+    } else if (path.startsWith('/product/')) {
+      const productId = path.split('/product/')[1];
+      // 商品IDから商品を取得して設定（必要に応じて実装）
+      setView('product-detail');
+    } else {
+      setView('home');
+    }
+  }, [location.pathname]);
+
+  // viewが変更されたらURLを更新
+  const updateView = useCallback((newView: ViewType) => {
+    setView(newView);
+    if (newView === 'admin') {
+      navigate('/admin', { replace: true });
+    } else if (newView === 'cart') {
+      navigate('/cart', { replace: true });
+    } else if (newView === 'product-detail') {
+      // 商品IDがある場合はURLに含める
+      // navigate(`/product/${productId}`, { replace: true });
+    } else {
+      navigate('/', { replace: true });
+    }
+  }, [navigate]);
   const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -62,7 +96,7 @@ const App: React.FC = () => {
 
   const handleProductSelect = (product: Product) => {
     setSelectedProduct(product);
-    setView('product-detail');
+    updateView('product-detail');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -80,7 +114,7 @@ const App: React.FC = () => {
     setSelectedCategory(category);
     setSearchQuery('');
     setSelectedProduct(null);
-    setView('home');
+    updateView('home');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -114,11 +148,11 @@ const App: React.FC = () => {
           onSearch={(q) => {
             setSearchQuery(q);
             setSelectedCategory(Category.ALL);
-            if (view !== 'home') setView('home');
+            if (view !== 'home') updateView('home');
           }}
-          onOpenCart={() => setView('cart')}
+          onOpenCart={() => updateView('cart')}
           onGoHome={() => {
-            setView('home');
+            updateView('home');
             setSelectedProduct(null);
             setSelectedCategory(Category.ALL);
             setSearchQuery('');
@@ -135,7 +169,7 @@ const App: React.FC = () => {
               <p className="font-bold text-sm text-gray-900">カートに追加されました</p>
               <p className="text-[11px] text-gray-500 line-clamp-1 mb-3">{showAddSuccess}</p>
               <button 
-                onClick={() => setView('cart')}
+                onClick={() => updateView('cart')}
                 className="bg-[#ffd814] text-gray-900 text-[10px] font-bold px-4 py-2 rounded-lg hover:bg-[#f7ca00] transition-colors border border-[#fcd200]"
               >
                 カートを表示して進む
@@ -150,21 +184,21 @@ const App: React.FC = () => {
           <AdminPage 
             products={products} 
             onUpdateProducts={handleUpdateProducts}
-            onBackToStore={() => setView('home')} 
+            onBackToStore={() => updateView('home')} 
           />
         ) : view === 'cart' ? (
           <CartPage 
             items={cart} 
             onUpdateQuantity={updateCartQuantity} 
             onRemove={removeFromCart}
-            onBackToHome={() => setView('home')}
+            onBackToHome={() => updateView('home')}
           />
         ) : view === 'product-detail' && selectedProduct ? (
           <ProductDetailPage 
             product={selectedProduct}
             onAddToCart={handleAddToCart}
             onBackToHome={() => {
-              setView('home');
+              updateView('home');
               setSelectedProduct(null);
             }}
             relatedProducts={relatedProducts}
@@ -276,7 +310,7 @@ const App: React.FC = () => {
                 Xin Chào Vietnamは、ベトナム各地の伝統的な職人技を現代の暮らしに届けるセレクトショップです。
               </p>
               <button 
-                onClick={() => setView('admin')}
+                onClick={() => updateView('admin')}
                 className="mt-4 sm:mt-8 flex items-center gap-1.5 sm:gap-2 text-[9px] sm:text-[10px] font-bold text-gray-300 hover:text-gray-500 transition-colors uppercase tracking-widest"
               >
                 <Settings size={11} className="sm:w-3 sm:h-3" /> <span className="hidden sm:inline">管理者用メニュー</span>
