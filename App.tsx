@@ -106,7 +106,7 @@ const App: React.FC = () => {
   const isPureHome = !searchQuery && selectedCategory === Category.ALL;
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-gray-900">
+    <div className="min-h-screen flex flex-col bg-white text-gray-900 w-full overflow-x-hidden">
       {view !== 'admin' && (
         <Header 
           cartCount={totalCartCount} 
@@ -205,7 +205,7 @@ const App: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="max-w-[1000px] mx-auto mt-8 sm:-mt-16 px-3 sm:px-4 mb-12 sm:mb-16 relative z-10">
+                <div className="w-full max-w-[1000px] mx-auto mt-8 sm:-mt-16 px-2 sm:px-4 md:px-6 mb-12 sm:mb-16 relative z-10">
                   <ChatComponent products={products} />
                 </div>
               </>

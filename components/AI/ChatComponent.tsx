@@ -66,7 +66,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({ products }) => {
   };
 
   return (
-    <div className="w-full bg-white rounded-2xl sm:rounded-3xl shadow-xl border border-gray-100 flex flex-col h-[320px] sm:h-[400px] md:h-[480px] overflow-hidden transition-all">
+    <div className="w-full max-w-full bg-white rounded-2xl sm:rounded-3xl shadow-xl border border-gray-100 flex flex-col h-[320px] sm:h-[400px] md:h-[480px] overflow-hidden transition-all">
       {/* Header */}
       <div className="px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 bg-white border-b border-gray-50 flex items-center justify-between">
         <div className="flex items-center gap-2 sm:gap-3">
