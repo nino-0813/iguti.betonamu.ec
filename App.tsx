@@ -5,12 +5,11 @@ import Header from './components/Layout/Header';
 import ProductCard from './components/Product/ProductCard';
 import CartPage from './components/Cart/CartPage';
 import ProductDetailPage from './components/Product/ProductDetailPage';
-import ChatComponent from './components/AI/ChatComponent';
+import VietnamDailyFeed from './components/Feed/VietnamDailyFeed';
 import AdminPage from './components/Admin/AdminPage';
 import MyPage from './components/MyPage/MyPage';
 import { Product, CartItem, Category } from './types';
 import { MOCK_PRODUCTS as INITIAL_PRODUCTS, getFeaturedProducts } from './constants';
-import { chatService } from './services/chatService';
 import FeaturedStoryBlock from './components/Product/FeaturedStoryBlock';
 import { ArrowRight, CheckCircle2, Settings } from 'lucide-react';
 
@@ -299,7 +298,7 @@ const App: React.FC = () => {
                 </div>
 
                 <div className="w-full max-w-[1000px] mx-auto mt-8 sm:mt-12 px-2 sm:px-4 md:px-6 mb-12 sm:mb-16 relative z-10">
-                  <ChatComponent products={products} />
+                  <VietnamDailyFeed />
                 </div>
               </>
             )}
