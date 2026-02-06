@@ -64,10 +64,7 @@ export const MOCK_PRODUCTS: Product[] = [
     image: 'https://picsum.photos/seed/coffee/400/400',
     description: '中原（チュングエン）コーヒーの人気No.1インスタントコーヒー。',
     isPrime: true,
-    stockCount: 100,
-    featuredOrder: 4,
-    storyTitle: '朝の一杯が、ベトナムになる。',
-    story: 'ベトナムは世界有数のコーヒー産地。G7は現地でも愛飲されている定番で、深い味わいと甘みのバランスが人気です。3in1でそのままお湯を注ぐだけ。忙しい朝でも、一口でベトナムの香りを感じていただけます。'
+    stockCount: 100
   },
   {
     id: '3',
@@ -96,30 +93,6 @@ export const MOCK_PRODUCTS: Product[] = [
     featuredOrder: 5,
     storyTitle: 'ホイアンの灯りを、おうちに。',
     story: '世界遺産の古い街・ホイアンは、夜になると無数のランタンが灯ります。このランタンは、現地で使われているのと同じシルク生地を使ったMサイズ。折りたたみ可能なので、インテリアはもちろん、イベントや写真撮影にも。一灯で空間が変わります。'
-  },
-  {
-    id: '5',
-    name: 'ベトナム産 ライスペーパー (直径22cm) 500g',
-    category: Category.FOOD,
-    price: 680,
-    rating: 4.7,
-    reviewCount: 320,
-    image: 'https://picsum.photos/seed/ricepaper/400/400',
-    description: '生春巻きの必須アイテム。破れにくく使いやすいプロ仕様。',
-    isPrime: true,
-    stockCount: 200
-  },
-  {
-    id: '7',
-    name: 'ベトナムコーヒーフィルター アルミ製 100ml',
-    category: Category.KITCHEN,
-    price: 850,
-    rating: 4.5,
-    reviewCount: 560,
-    image: 'https://picsum.photos/seed/filter/400/400',
-    description: 'ベトナム式コーヒーを楽しむための伝統的なフィルター。',
-    isPrime: true,
-    stockCount: 150
   }
 ];
 

@@ -20,6 +20,18 @@ const App: React.FC = () => {
   const location = useLocation();
   const [view, setView] = useState<ViewType>('home');
 
+  // ページを開いた時・画面遷移時に常に一番上から表示する
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  // 初回表示時はハッシュがあっても必ず先頭に（ブラウザのハッシュスクロールより後に実行）
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const id = requestAnimationFrame(() => window.scrollTo(0, 0));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
   // URLとviewを同期
   useEffect(() => {
     const path = location.pathname;
@@ -219,30 +231,33 @@ const App: React.FC = () => {
               <>
                 <div className="relative h-[300px] sm:h-[400px] md:h-[550px] overflow-hidden">
                   <picture>
-                    <source type="image/webp" srcSet="/images/S__59285516.webp" />
+                    <source type="image/webp" srcSet="/images/S__59285518.webp" />
                     <img 
-                      src="/images/S__59285516.jpg" 
-                      alt="ベトナムを、もっと身近に。花と湖と街の風景" 
+                      src="/images/S__59285518.jpg" 
+                      alt="ベトナムを、もっと身近に。ホイアンの灯りと伝統建築" 
                       className="w-full h-full object-cover brightness-95"
                     />
                   </picture>
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent" />
+                  <div className="absolute inset-0 bg-black/30" />
                   
-                  <div className="absolute inset-0 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-20">
-                    <div className="max-w-2xl">
-                      <span className="inline-block text-[8px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase bg-[#ffa41c] text-white px-2 sm:px-3 py-0.5 sm:py-1 mb-3 sm:mb-4 md:mb-6 rounded">Selected Collections</span>
-                      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold mb-3 sm:mb-4 md:mb-6 leading-tight text-gray-900">
-                        ベトナムを、<br />もっと身近に.
+                  <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 sm:px-6 md:px-8">
+                    <div className="max-w-xl mx-auto">
+                      <span className="inline-block text-[7px] sm:text-[9px] font-bold tracking-[0.2em] sm:tracking-[0.28em] uppercase text-[#ffd814] mb-2 sm:mb-3 rounded border border-[#ffd814]/50 px-2 sm:px-2.5 py-0.5">
+                        Selected Collections
+                      </span>
+                      <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold mb-2 sm:mb-3 leading-[1.3] text-white tracking-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]">
+                        <span className="block tracking-wide">灯りと、手仕事。</span>
+                        <span className="block mt-0.5 text-[#ffd814]">ベトナムを、暮らしのそばに。</span>
                       </h1>
-                      <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-lg">
-                        現地職人の温もりを感じるバチャン焼きから、空間を劇的に変えるセット商品まで。Xin Chào Vietnamが贈る、至福のセレクト。
+                      <p className="text-[10px] sm:text-xs md:text-sm text-white/90 mb-4 sm:mb-6 leading-relaxed max-w-md mx-auto drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
+                        職人の手から生まれた器と灯り。ひとつから、あなたの空間が変わる。
                       </p>
-                      <div className="flex gap-3 sm:gap-4">
+                      <div className="flex justify-center">
                         <a
                           href="#featured-stories"
-                          className="bg-[#ffd814] text-gray-900 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-3.5 rounded-full font-bold text-xs sm:text-sm inline-flex items-center gap-1.5 sm:gap-2 hover:bg-[#f7ca00] transition-all shadow-lg border border-[#fcd200]"
+                          className="bg-[#ffd814] text-gray-900 px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 rounded-full font-bold text-[10px] sm:text-xs inline-flex items-center gap-1.5 hover:bg-[#f7ca00] transition-all shadow-lg border border-[#fcd200]"
                         >
-                          厳選ストーリーを見る <ArrowRight size={14} className="sm:w-[18px] sm:h-[18px]" />
+                          厳選ストーリーを見る <ArrowRight size={12} className="sm:w-3.5 sm:h-3.5" />
                         </a>
                       </div>
                     </div>
@@ -254,7 +269,7 @@ const App: React.FC = () => {
                   <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 pt-12 sm:pt-16 pb-4">
                     <p className="text-[10px] sm:text-xs font-bold text-[#ffa41c] tracking-[0.2em] uppercase mb-2">Our Selection</p>
                     <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                      私たちが厳選した、5つのストーリー
+                      私たちが厳選した、4つのストーリー
                     </h2>
                     <p className="text-sm text-gray-600 max-w-xl">
                       現地の職人と出会い、選んだ商品の背景にある物語をご紹介します。
