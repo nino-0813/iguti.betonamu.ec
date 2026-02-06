@@ -55,18 +55,6 @@ export const MOCK_PRODUCTS: Product[] = [
     story: 'ハノイ近郊・バチャン村の陶芸は、千年以上の歴史があります。この茶器セットは、蓮の花を手書きで描いた一点ものに近い仕上がり。急須と湯呑み6客で、日常のお茶が少しだけ特別な時間に変わります。'
   },
   {
-    id: '2',
-    name: 'ベトナムコーヒー G7 インスタント 3in1 (16g x 50包)',
-    category: Category.COFFEE,
-    price: 1980,
-    rating: 4.8,
-    reviewCount: 2450,
-    image: 'https://picsum.photos/seed/coffee/400/400',
-    description: '中原（チュングエン）コーヒーの人気No.1インスタントコーヒー。',
-    isPrime: true,
-    stockCount: 100
-  },
-  {
     id: '3',
     name: 'アオザイ 既製品 刺繍デザイン シルク調 選べるカラー',
     category: Category.FASHION,

@@ -7,13 +7,14 @@ import CartPage from './components/Cart/CartPage';
 import ProductDetailPage from './components/Product/ProductDetailPage';
 import ChatComponent from './components/AI/ChatComponent';
 import AdminPage from './components/Admin/AdminPage';
+import MyPage from './components/MyPage/MyPage';
 import { Product, CartItem, Category } from './types';
 import { MOCK_PRODUCTS as INITIAL_PRODUCTS, getFeaturedProducts } from './constants';
 import { chatService } from './services/chatService';
 import FeaturedStoryBlock from './components/Product/FeaturedStoryBlock';
 import { ArrowRight, CheckCircle2, Settings } from 'lucide-react';
 
-type ViewType = 'home' | 'cart' | 'product-detail' | 'admin';
+type ViewType = 'home' | 'cart' | 'product-detail' | 'admin' | 'mypage';
 
 const App: React.FC = () => {
   const navigate = useNavigate();
@@ -39,9 +40,9 @@ const App: React.FC = () => {
       setView('admin');
     } else if (path === '/cart') {
       setView('cart');
+    } else if (path === '/mypage') {
+      setView('mypage');
     } else if (path.startsWith('/product/')) {
-      const productId = path.split('/product/')[1];
-      // 商品IDから商品を取得して設定（必要に応じて実装）
       setView('product-detail');
     } else {
       setView('home');
@@ -55,9 +56,10 @@ const App: React.FC = () => {
       navigate('/admin', { replace: true });
     } else if (newView === 'cart') {
       navigate('/cart', { replace: true });
+    } else if (newView === 'mypage') {
+      navigate('/mypage', { replace: true });
     } else if (newView === 'product-detail') {
       // 商品IDがある場合はURLに含める
-      // navigate(`/product/${productId}`, { replace: true });
     } else {
       navigate('/', { replace: true });
     }
@@ -154,11 +156,17 @@ const App: React.FC = () => {
 
   /** トップで紹介する厳選商品（3〜5点） */
   const featuredProducts = useMemo(() => getFeaturedProducts(products), [products]);
-  /** 厳選以外の商品（ホームの「その他の商品」用） */
+  /** 厳選以外の商品（ホームの「その時の商品」＝その日現地で出会った一品） */
   const otherProducts = useMemo(() => {
     const featuredIds = new Set(featuredProducts.map(p => p.id));
     return products.filter(p => !featuredIds.has(p.id));
   }, [products, featuredProducts]);
+
+  /** 表示用の「その日」の日付（その日その日で変わる想定） */
+  const todayLabel = useMemo(() => {
+    const d = new Date();
+    return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-gray-900 w-full max-w-full overflow-x-hidden" style={{ minWidth: '320px', width: '100%' }}>
@@ -172,6 +180,7 @@ const App: React.FC = () => {
             if (view !== 'home') updateView('home');
           }}
           onOpenCart={() => updateView('cart')}
+          onOpenMyPage={() => updateView('mypage')}
           onGoHome={() => {
             updateView('home');
             setSelectedProduct(null);
@@ -214,6 +223,8 @@ const App: React.FC = () => {
             onRemove={removeFromCart}
             onBackToHome={() => updateView('home')}
           />
+        ) : view === 'mypage' ? (
+          <MyPage onBackToHome={() => updateView('home')} />
         ) : view === 'product-detail' && selectedProduct ? (
           <ProductDetailPage 
             product={selectedProduct}
@@ -295,14 +306,19 @@ const App: React.FC = () => {
 
             <div className={`max-w-[1500px] mx-auto px-3 sm:px-4 md:px-8 pb-12 sm:pb-16 md:pb-20 min-w-[320px] w-full ${!isPureHome ? 'mt-8 sm:mt-12' : ''}`}>
               <div className="mb-12 sm:mb-16 md:mb-20">
-                <div className="flex items-end justify-between mb-6 sm:mb-8 md:mb-10 border-b border-gray-100 pb-4 sm:pb-5 md:pb-6">
+                <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-6 sm:mb-8 md:mb-10 border-b border-gray-100 pb-4 sm:pb-5 md:pb-6">
                   <div>
                     <span className="text-[9px] sm:text-[10px] font-bold text-[#ffa41c] tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-1 sm:mb-2 block">
-                      {isPureHome ? 'More' : 'Catalog'}
+                      {isPureHome ? 'その日' : 'Catalog'}
                     </span>
                     <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
-                      {isPureHome ? 'その他の商品' : pageTitle}
+                      {isPureHome ? 'その時の商品' : pageTitle}
                     </h2>
+                    {isPureHome && (
+                      <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                        その日、現地で出会った一品。 — {todayLabel}
+                      </p>
+                    )}
                   </div>
                 </div>
 
