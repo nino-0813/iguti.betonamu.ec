@@ -8,8 +8,9 @@ import ProductDetailPage from './components/Product/ProductDetailPage';
 import ChatComponent from './components/AI/ChatComponent';
 import AdminPage from './components/Admin/AdminPage';
 import { Product, CartItem, Category } from './types';
-import { MOCK_PRODUCTS as INITIAL_PRODUCTS } from './constants';
+import { MOCK_PRODUCTS as INITIAL_PRODUCTS, getFeaturedProducts } from './constants';
 import { chatService } from './services/chatService';
+import FeaturedStoryBlock from './components/Product/FeaturedStoryBlock';
 import { ArrowRight, CheckCircle2, Settings } from 'lucide-react';
 
 type ViewType = 'home' | 'cart' | 'product-detail' | 'admin';
@@ -139,6 +140,14 @@ const App: React.FC = () => {
 
   const isPureHome = !searchQuery && selectedCategory === Category.ALL;
 
+  /** トップで紹介する厳選商品（3〜5点） */
+  const featuredProducts = useMemo(() => getFeaturedProducts(products), [products]);
+  /** 厳選以外の商品（ホームの「その他の商品」用） */
+  const otherProducts = useMemo(() => {
+    const featuredIds = new Set(featuredProducts.map(p => p.id));
+    return products.filter(p => !featuredIds.has(p.id));
+  }, [products, featuredProducts]);
+
   return (
     <div className="min-h-screen flex flex-col bg-white text-gray-900 w-full max-w-full overflow-x-hidden" style={{ minWidth: '320px', width: '100%' }}>
       {view !== 'admin' && (
@@ -229,59 +238,62 @@ const App: React.FC = () => {
                         現地職人の温もりを感じるバチャン焼きから、空間を劇的に変えるセット商品まで。Xin Chào Vietnamが贈る、至福のセレクト。
                       </p>
                       <div className="flex gap-3 sm:gap-4">
-                        <button 
-                          onClick={() => {
-                            handleSelectCategory(Category.SET);
-                          }}
-                          className="bg-[#ffd814] text-gray-900 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-3.5 rounded-full font-bold text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2 hover:bg-[#f7ca00] transition-all shadow-lg border border-[#fcd200]"
+                        <a
+                          href="#featured-stories"
+                          className="bg-[#ffd814] text-gray-900 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-3.5 rounded-full font-bold text-xs sm:text-sm inline-flex items-center gap-1.5 sm:gap-2 hover:bg-[#f7ca00] transition-all shadow-lg border border-[#fcd200]"
                         >
-                          空間提案セットを見る <ArrowRight size={14} className="sm:w-[18px] sm:h-[18px]" />
-                        </button>
+                          厳選ストーリーを見る <ArrowRight size={14} className="sm:w-[18px] sm:h-[18px]" />
+                        </a>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="w-full max-w-[1000px] mx-auto mt-8 sm:-mt-16 px-2 sm:px-4 md:px-6 mb-12 sm:mb-16 relative z-10">
+                {/* 厳選ストーリー（3〜5点） */}
+                <div id="featured-stories" className="bg-gray-50/50 border-t border-gray-100">
+                  <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 pt-12 sm:pt-16 pb-4">
+                    <p className="text-[10px] sm:text-xs font-bold text-[#ffa41c] tracking-[0.2em] uppercase mb-2">Our Selection</p>
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                      私たちが厳選した、5つのストーリー
+                    </h2>
+                    <p className="text-sm text-gray-600 max-w-xl">
+                      現地の職人と出会い、選んだ商品の背景にある物語をご紹介します。
+                    </p>
+                  </div>
+                  {featuredProducts.map((product, index) => (
+                    <FeaturedStoryBlock
+                      key={product.id}
+                      product={product}
+                      order={index + 1}
+                      layout={index % 2 === 0 ? 'imageLeft' : 'imageRight'}
+                      onSelect={() => handleProductSelect(product)}
+                      onAddToCart={handleAddToCart}
+                    />
+                  ))}
+                </div>
+
+                <div className="w-full max-w-[1000px] mx-auto mt-8 sm:mt-12 px-2 sm:px-4 md:px-6 mb-12 sm:mb-16 relative z-10">
                   <ChatComponent products={products} />
                 </div>
               </>
             )}
 
             <div className={`max-w-[1500px] mx-auto px-3 sm:px-4 md:px-8 pb-12 sm:pb-16 md:pb-20 min-w-[320px] w-full ${!isPureHome ? 'mt-8 sm:mt-12' : ''}`}>
-              {isPureHome && (
-                <div className="mb-12 sm:mb-16 md:mb-20">
-                  <div className="flex items-end justify-between mb-6 sm:mb-8 md:mb-10 border-b border-gray-100 pb-4 sm:pb-5 md:pb-6">
-                    <div>
-                      <span className="text-[9px] sm:text-[10px] font-bold text-[#ffa41c] tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-1 sm:mb-2 block">Special Package</span>
-                      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">空間提案セット</h2>
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
-                    {products.filter(p => p.category === Category.SET).map(product => (
-                      <ProductCard 
-                        key={product.id} 
-                        product={product} 
-                        onAddToCart={handleAddToCart}
-                        onSelect={() => handleProductSelect(product)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
               <div className="mb-12 sm:mb-16 md:mb-20">
                 <div className="flex items-end justify-between mb-6 sm:mb-8 md:mb-10 border-b border-gray-100 pb-4 sm:pb-5 md:pb-6">
                   <div>
-                    <span className="text-[9px] sm:text-[10px] font-bold text-[#ffa41c] tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-1 sm:mb-2 block">Catalog</span>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">{pageTitle}</h2>
+                    <span className="text-[9px] sm:text-[10px] font-bold text-[#ffa41c] tracking-[0.2em] sm:tracking-[0.3em] uppercase mb-1 sm:mb-2 block">
+                      {isPureHome ? 'More' : 'Catalog'}
+                    </span>
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
+                      {isPureHome ? 'その他の商品' : pageTitle}
+                    </h2>
                   </div>
                 </div>
 
-                {filteredProducts.length > 0 ? (
+                {(isPureHome ? otherProducts : filteredProducts).length > 0 ? (
                   <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
-                    {filteredProducts.map(product => (
+                    {(isPureHome ? otherProducts : filteredProducts).map(product => (
                       <ProductCard 
                         key={product.id} 
                         product={product} 

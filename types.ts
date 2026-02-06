@@ -12,6 +12,12 @@ export interface Product {
   isPrime: boolean;
   stockCount: number;
   items?: string[];
+  /** トップで紹介する厳選商品の並び順（1〜5）。未設定は厳選に含めない */
+  featuredOrder?: number;
+  /** 商品にまつわるストーリー見出し */
+  storyTitle?: string;
+  /** 商品にまつわるストーリー本文 */
+  story?: string;
 }
 
 export interface CartItem extends Product {

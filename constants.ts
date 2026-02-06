@@ -16,7 +16,10 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'エステサロンの受付や施術室に。リラックスできる空間をトータルコーディネートします。',
     items: ['ラタン編みかご（タオル収納用）', 'バッチャン焼き アロマ皿', 'バッチャン焼き 一輪挿し', '手書きタイル壁掛け'],
     isPrime: true,
-    stockCount: 5
+    stockCount: 5,
+    featuredOrder: 1,
+    storyTitle: '空間に、ベトナムの「息づかい」を。',
+    story: 'エステサロンの方から「お客様がもっとリラックスできる空間にしたい」というご相談をいただきました。ラタンのかご、バッチャン焼きのアロマ皿と一輪挿し、手書きタイル。どれも現地の職人が一つずつ手がけたものです。置いたその日から、施術室の空気が変わったとおっしゃっていました。'
   },
   {
     id: 'set-2',
@@ -30,7 +33,10 @@ export const MOCK_PRODUCTS: Product[] = [
     description: '宿泊施設のアメニティ置きや装飾に。統一感のあるバッチャン焼きで高級感を演出。',
     items: ['アメニティ用かご', 'バッチャン焼き 小皿・石鹸置き', '客室用一輪挿し', '装飾用タイル'],
     isPrime: true,
-    stockCount: 10
+    stockCount: 10,
+    featuredOrder: 2,
+    storyTitle: '一室ごとに、物語を。',
+    story: 'ホテルや旅館の客室は、お客様が最も長く過ごす場所。そこで「どこか遠くに来た」と感じてもらえるように、ベトナムの職人仕事をまとめたセットをご用意しました。アメニティ置きから装飾まで、統一感のあるバッチャン焼きで、滞在の記憶を残します。'
   },
   {
     id: '1',
@@ -43,7 +49,10 @@ export const MOCK_PRODUCTS: Product[] = [
     image: 'https://picsum.photos/seed/batchang/400/400',
     description: 'ハノイ近郊のバチャン村で作られた伝統的な陶磁器。',
     isPrime: true,
-    stockCount: 15
+    stockCount: 15,
+    featuredOrder: 3,
+    storyTitle: '1000年続く窯元の、一客一客。',
+    story: 'ハノイ近郊・バチャン村の陶芸は、千年以上の歴史があります。この茶器セットは、蓮の花を手書きで描いた一点ものに近い仕上がり。急須と湯呑み6客で、日常のお茶が少しだけ特別な時間に変わります。'
   },
   {
     id: '2',
@@ -55,7 +64,10 @@ export const MOCK_PRODUCTS: Product[] = [
     image: 'https://picsum.photos/seed/coffee/400/400',
     description: '中原（チュングエン）コーヒーの人気No.1インスタントコーヒー。',
     isPrime: true,
-    stockCount: 100
+    stockCount: 100,
+    featuredOrder: 4,
+    storyTitle: '朝の一杯が、ベトナムになる。',
+    story: 'ベトナムは世界有数のコーヒー産地。G7は現地でも愛飲されている定番で、深い味わいと甘みのバランスが人気です。3in1でそのままお湯を注ぐだけ。忙しい朝でも、一口でベトナムの香りを感じていただけます。'
   },
   {
     id: '3',
@@ -80,7 +92,10 @@ export const MOCK_PRODUCTS: Product[] = [
     image: 'https://picsum.photos/seed/lantern/400/400',
     description: 'ホイアンの夜を彩る幻想的なランタン。折りたたみ可能。',
     isPrime: true,
-    stockCount: 20
+    stockCount: 20,
+    featuredOrder: 5,
+    storyTitle: 'ホイアンの灯りを、おうちに。',
+    story: '世界遺産の古い街・ホイアンは、夜になると無数のランタンが灯ります。このランタンは、現地で使われているのと同じシルク生地を使ったMサイズ。折りたたみ可能なので、インテリアはもちろん、イベントや写真撮影にも。一灯で空間が変わります。'
   },
   {
     id: '5',
@@ -107,3 +122,10 @@ export const MOCK_PRODUCTS: Product[] = [
     stockCount: 150
   }
 ];
+
+/** トップで紹介する厳選商品（3〜5点）。featuredOrder の昇順 */
+export function getFeaturedProducts(products: Product[]): Product[] {
+  return products
+    .filter((p): p is Product & { featuredOrder: number } => p.featuredOrder != null)
+    .sort((a, b) => a.featuredOrder - b.featuredOrder);
+}
