@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { Product } from '@/lib/types';
 import { motion } from 'motion/react';
-import { ChevronRight } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -28,7 +27,6 @@ export function ProductCard({ product }: ProductCardProps) {
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             referrerPolicy="no-referrer"
           />
-          {/* ホバー時の「詳しく見る」オーバーレイ */}
           <div className="absolute inset-0 bg-brand-ink/0 group-hover:bg-brand-ink/20 transition-colors flex items-center justify-center">
             <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white text-sm font-medium uppercase tracking-widest bg-brand-ink/80 px-4 py-2 rounded-full">
               詳しく見る
@@ -42,16 +40,12 @@ export function ProductCard({ product }: ProductCardProps) {
             </div>
           )}
         </div>
-        <div className="p-4 space-y-2 min-h-[120px] flex flex-col">
+        <div className="p-4 space-y-2 min-h-[100px] flex flex-col">
           <p className="text-[10px] uppercase tracking-widest text-brand-ink/50">{product.category}</p>
           <h3 className="text-lg font-serif group-hover:text-brand-olive transition-colors line-clamp-2 min-h-[3.5rem]">
             {product.name}
           </h3>
           <p className="text-sm font-medium">¥{product.price.toLocaleString()}</p>
-          <span className="inline-flex items-center gap-1 text-xs text-brand-olive font-medium uppercase tracking-widest mt-auto">
-            商品ページへ
-            <ChevronRight size={14} />
-          </span>
         </div>
       </Link>
     </motion.div>

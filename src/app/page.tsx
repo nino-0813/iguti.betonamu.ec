@@ -1,6 +1,6 @@
 import { HeroSection } from '@/components/HeroSection';
 import { PickupStorySection } from '@/components/PickupStorySection';
-import { CategoryNavSection } from '@/components/CategoryNavSection';
+import { GiftSetSection } from '@/components/GiftSetSection';
 import { FeaturedProductsSection } from '@/components/FeaturedProductsSection';
 import { MiniAboutSection } from '@/components/MiniAboutSection';
 import { LatestBlogSection } from '@/components/LatestBlogSection';
@@ -16,7 +16,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <PickupStorySection />
-      <CategoryNavSection />
+      <GiftSetSection />
       <FeaturedProductsSection />
       <MiniAboutSection />
       <LatestBlogSection />
