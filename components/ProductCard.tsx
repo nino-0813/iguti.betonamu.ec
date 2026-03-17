@@ -42,11 +42,13 @@ export function ProductCard({ product }: ProductCardProps) {
             </div>
           )}
         </div>
-        <div className="p-4 space-y-2">
+        <div className="p-4 space-y-2 min-h-[120px] flex flex-col">
           <p className="text-[10px] uppercase tracking-widest text-brand-ink/50">{product.category}</p>
-          <h3 className="text-lg font-serif group-hover:text-brand-olive transition-colors">{product.name}</h3>
+          <h3 className="text-lg font-serif group-hover:text-brand-olive transition-colors line-clamp-2 min-h-[3.5rem]">
+            {product.name}
+          </h3>
           <p className="text-sm font-medium">¥{product.price.toLocaleString()}</p>
-          <span className="inline-flex items-center gap-1 text-xs text-brand-olive font-medium uppercase tracking-widest">
+          <span className="inline-flex items-center gap-1 text-xs text-brand-olive font-medium uppercase tracking-widest mt-auto">
             商品ページへ
             <ChevronRight size={14} />
           </span>
